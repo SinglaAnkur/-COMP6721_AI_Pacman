@@ -87,6 +87,25 @@ def depthFirstSearch(problem):
     print("Start's successors:", problem.getSuccessors(problem.getStartState()))
     """
     "*** YOUR CODE HERE ***"
+    
+    from util import Stack
+    open=Stack()
+    close=[]
+    open.push((problem.getStartState(),[]))
+    successor=[]
+    while(not open.isEmpty()):
+        current_node=open.pop()
+        state=current_node[0]
+        directions=current_node[1]
+        if problem.isGoalState(state):  
+            return directions
+        else:
+            close.append(state)
+            successor=problem.getSuccessors(state)
+            for i in successor:
+                if i[0] not in close:
+                    list=i[1].split('\n')
+                    open.push((i[0],directions+list))
     util.raiseNotDefined()
 
 def breadthFirstSearch(problem):
