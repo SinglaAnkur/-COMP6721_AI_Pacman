@@ -158,7 +158,43 @@ def constructPath(resultPath):
 def uniformCostSearch(problem):
     """Search the node of least total cost first."""
     "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
+    openKey = util.PriorityQueue()
+    closedKey = util.Queue()
+    open = {}
+    visited = {}
+    openList = []
+
+    open.update({problem.getStartState(): ((problem.getStartState(), '', 0), None)})
+    openKey.push(problem.getStartState(), 0)
+    openList.append(problem.getStartState())
+    while not openKey.isEmpty():
+        currentKey = openKey.pop()
+        currentNode = open[currentKey]
+        parentNode = currentNode[1]
+        openList.remove(currentKey)
+        if problem.isGoalState(currentNode[0][0]):
+            visited.update({currentNode[0][0]: currentNode})
+            path = [currentNode[0][1]]
+            while parentNode is not None:
+                if parentNode[1] is not '':
+                    path.insert(0, parentNode[1])
+                parentNode = visited[parentNode[0]][1]
+            return path
+        else:
+            closedKey.push(currentNode[0][0])
+            visited.update({currentNode[0][0]: currentNode})
+            children = problem.getSuccessors(currentNode[0][0])
+            for child in children:
+                if child[0] not in closedKey.list:
+                    if child[0] not in openList:
+                        openKey.update(child[0], child[2] + currentNode[0][2])
+                        open.update({child[0]: ((child[0], child[1], child[2] + currentNode[0][2]), currentNode[0])})
+                        openList.append(child[0])
+                    else:
+                        if (child[2] + currentNode[0][2]) < open[child[0]][0][2]:
+                            open.update({child[0]: ((child[0], child[1], child[2] + currentNode[0][2]), currentNode[0])})
+
+    return "Goal not found"
 
 def nullHeuristic(state, problem=None):
     """
