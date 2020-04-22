@@ -288,6 +288,8 @@ class CornersProblem(search.SearchProblem):
         # Please add any code here which you would like to use
         # in initializing the problem
         "*** YOUR CODE HERE ***"
+        cornersTraversed=['False','False','False','False']
+        self.startingState=(self.startingPosition,cornersTraversed)           
 
     def getStartState(self):
         """
@@ -295,6 +297,7 @@ class CornersProblem(search.SearchProblem):
         space)
         """
         "*** YOUR CODE HERE ***"
+        return self.startingState
         util.raiseNotDefined()
 
     def isGoalState(self, state):
@@ -302,6 +305,13 @@ class CornersProblem(search.SearchProblem):
         Returns whether this search state is a goal state of the problem.
         """
         "*** YOUR CODE HERE ***"
+        cornersTraversed=state[1]
+        for i in cornersTraversed:
+            if i == 'False':
+                return False
+            else:
+                continue
+        return True
         util.raiseNotDefined()
 
     def getSuccessors(self, state):
