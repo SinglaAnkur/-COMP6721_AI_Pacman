@@ -504,7 +504,17 @@ def foodHeuristic(state, problem):
     """
     position, foodGrid = state
     "*** YOUR CODE HERE ***"
-    return 0
+    foodCoordinatesList = foodGrid.asList()
+    maximumHeuristic = 0
+    
+    
+    # Applying mazeDistance to calculate heuristics because MazeDistance 
+    # appears to expand less number of nodes than Manhattan and Euclidean Distance 
+    for foodCoordinate in foodCoordinatesList:
+        heuristicDistance = mazeDistance(position, foodCoordinate, problem.startingGameState)
+        maximumHeuristic = max(maximumHeuristic, heuristicDistance)
+
+    return maximumHeuristic
 
 class ClosestDotSearchAgent(SearchAgent):
     "Search for all food using a sequence of searches"
