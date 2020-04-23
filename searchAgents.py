@@ -335,8 +335,28 @@ class CornersProblem(search.SearchProblem):
             #   hitsWall = self.walls[nextx][nexty]
 
             "*** YOUR CODE HERE ***"
-
+            current_state=state[0]
+            x=current_state[0]
+            y=current_state[1]
+            corners_list=state[1]
+            
+            dx, dy = Actions.directionToVector(action)
+            nextx, nexty = int(x + dx), int(y + dy)
+            hitsWall = self.walls[nextx][nexty]
+            if(not hitsWall):
+                current_cornerns_list=list(corners_list)
+                if(nextx,nexty) in self.corners:
+                    if (nextx,nexty)==self.corners[0] and current_cornerns_list[0]=='False':
+                        current_cornerns_list[0]='True'
+                    elif (nextx,nexty)==self.corners[1] and current_cornerns_list[1]=='False':
+                        current_cornerns_list[1]='True'
+                    elif (nextx,nexty)==self.corners[2] and current_cornerns_list[2]=='False':
+                        current_cornerns_list[2]='True'
+                    elif (nextx,nexty)==self.corners[3] and current_cornerns_list[3]=='False':
+                        current_cornerns_list[3]='True'
+                successors.append((((nextx,nexty),current_cornerns_list),action,1))
         self._expanded += 1 # DO NOT CHANGE
+
         return successors
 
     def getCostOfActions(self, actions):
