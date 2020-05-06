@@ -37,5 +37,5 @@ $ python pacman.py -l trickySearch -p AStarFoodSearchAgent
 ```
 $ python pacman.py -l bigSearch -p ClosestDotSearchAgent -z .5
 ```
-Credits
+- Credits
 This is the homework project for the course Artificial Intelligence (2020 Winter), at Concordia University
